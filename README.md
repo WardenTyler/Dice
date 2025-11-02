@@ -15,6 +15,16 @@ external dependencies required.
 - Responsive layout with high-contrast visuals suitable for desktop and mobile
   devices.
 
+## Dice 3D model & roll experience
+
+- The cube uses layered lighting, beveled edges, and directional shading so
+  multiple faces remain visible and the silhouette stays well-defined from every
+  angle.
+- Pip positions match a real die layout (opposite faces sum to seven) with
+  accurate corner, center, and edge placements.
+- Rolling triggers a procedurally generated dice-rattle audio effect created
+  with the Web Audio API to complement the visual tumble.
+
 ## Getting started
 
 1. Open `index.html` in a modern browser (Chrome, Edge, Firefox, Safari). No

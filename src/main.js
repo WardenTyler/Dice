@@ -6,6 +6,11 @@ const resultsList = document.getElementById('results-list');
 const resultsTotal = document.getElementById('results-total');
 const dieTemplate = document.getElementById('die-template');
 
+const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
+let audioContext;
+
+const BASE_TILT = { x: -34, y: 36, z: -6 };
 const BASE_TILT = { x: -24, y: 32, z: 0 };
 
 const ORIENTATIONS = {
@@ -70,6 +75,8 @@ function rollDice() {
   if (!dice.length) {
     return;
   }
+
+  playRollSound();
 
   rollButton.disabled = true;
   const rolledValues = [];
@@ -139,6 +146,96 @@ function randomInt(min, max) {
   const minValue = Math.ceil(min);
   const maxValue = Math.floor(max);
   return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
+}
+
+function getAudioContext() {
+  if (!AudioContextClass) {
+    return null;
+  }
+
+  if (!audioContext) {
+    audioContext = new AudioContextClass();
+  }
+
+  if (audioContext.state === 'suspended') {
+    audioContext.resume().catch(() => {});
+  }
+
+  return audioContext;
+}
+
+function createNoiseBuffer(context, duration) {
+  const length = Math.floor(duration * context.sampleRate);
+  const buffer = context.createBuffer(1, length, context.sampleRate);
+  const data = buffer.getChannelData(0);
+
+  for (let i = 0; i < length; i += 1) {
+    const progress = i / length;
+    const envelope = Math.pow(1 - progress, 2);
+    data[i] = (Math.random() * 2 - 1) * envelope;
+  }
+
+  return buffer;
+}
+
+function playRollSound() {
+  const context = getAudioContext();
+
+  if (!context) {
+    return;
+  }
+
+  const now = context.currentTime;
+  const master = context.createGain();
+  master.gain.setValueAtTime(0.0001, now);
+  master.connect(context.destination);
+
+  master.gain.exponentialRampToValueAtTime(0.7, now + 0.05);
+  master.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+
+  for (let i = 0; i < 4; i += 1) {
+    const source = context.createBufferSource();
+    source.buffer = createNoiseBuffer(context, 0.28);
+
+    const filter = context.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.Q.value = 1.6;
+    filter.frequency.setValueAtTime(650 + Math.random() * 550, now + i * 0.07);
+
+    const gain = context.createGain();
+    const start = now + i * 0.08;
+
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(0.9, start + 0.025);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.32);
+
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(master);
+    source.start(start);
+  }
+
+  const finalSource = context.createBufferSource();
+  finalSource.buffer = createNoiseBuffer(context, 0.18);
+  const finalFilter = context.createBiquadFilter();
+  finalFilter.type = 'lowpass';
+  finalFilter.frequency.setValueAtTime(420, now + 0.35);
+
+  const finalGain = context.createGain();
+  const finalStart = now + 0.32;
+
+  finalGain.gain.setValueAtTime(0.0001, finalStart);
+  finalGain.gain.exponentialRampToValueAtTime(0.6, finalStart + 0.02);
+  finalGain.gain.exponentialRampToValueAtTime(0.0001, finalStart + 0.28);
+
+  finalSource.connect(finalFilter);
+  finalFilter.connect(finalGain);
+  finalGain.connect(master);
+  finalSource.start(finalStart);
+
+  setTimeout(() => {
+    master.disconnect();
+  }, 1500);
 }
 
 // Bootstrap with the default value so the user immediately sees dice.
