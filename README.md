@@ -32,6 +32,20 @@ external dependencies required.
 2. Enter the number of dice you want and hit **Create Dice**.
 3. Press **Roll** to watch the dice animate and read the results panel.
 
+### Using the project on CodePen or similar sandboxes
+
+CodePen only serves the code that you place in each panel. If you paste
+`index.html` as-is, the `<script src="src/main.js">` reference will trigger a
+404 because CodePen cannot see the repository’s folder structure. To run the
+demo there:
+
+1. Copy the markup from `index.html` into the HTML panel.
+2. Copy the contents of `styles.css` into the CSS panel.
+3. Copy the contents of `src/main.js` into the JS panel.
+
+If you forget to add the JavaScript file, the page now displays a helpful
+message on load explaining why the dice are missing.
+
 ## Project structure
 
 ```

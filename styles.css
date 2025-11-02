@@ -160,6 +160,18 @@ body {
   align-items: center;
 }
 
+.dice-error {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  background: rgba(255, 101, 132, 0.12);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  text-align: center;
+  line-height: 1.5;
+  max-width: 420px;
+}
+
 .dice-grid {
   width: 100%;
   display: grid;

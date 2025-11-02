@@ -129,6 +129,26 @@
       </article>
     </template>
 
+    <script>
+      function handleDiceScriptError() {
+        const message = document.createElement('p');
+        message.className = 'dice-error';
+        message.textContent =
+          'Unable to load the dice logic script. If you are embedding this project on CodePen, paste the contents of src/main.js into the JS panel (and styles.css into the CSS panel).';
+
+        const stage = document.getElementById('dice-container');
+        if (stage) {
+          stage.innerHTML = '';
+          stage.appendChild(message);
+        }
+
+        const rollButton = document.getElementById('roll-button');
+        if (rollButton) {
+          rollButton.disabled = true;
+        }
+      }
+    </script>
+    <script type="module" src="src/main.js" onerror="handleDiceScriptError()"></script>
     <script type="module" src="src/main.js"></script>
   </body>
 </html>
