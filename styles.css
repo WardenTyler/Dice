@@ -184,6 +184,7 @@ body {
   width: var(--dice-size);
   height: var(--dice-size);
   perspective: 1100px;
+  perspective: 900px;
   display: grid;
   place-items: center;
 }
@@ -193,6 +194,7 @@ body {
   height: 100%;
   transform-style: preserve-3d;
   transform: rotateX(-24deg) rotateY(32deg);
+  transform: rotateX(-22deg) rotateY(30deg);
 }
 
 .die__cube {
@@ -338,6 +340,150 @@ body {
 .face--six {
   background: linear-gradient(240deg, #b9c0d8 25%, #a1a8c3 75%);
   transform: rotateY(180deg) translateZ(var(--dice-depth));
+  background: linear-gradient(145deg, #f7f8fc, #dadfff);
+  border-radius: 1rem;
+  box-shadow: inset 0 -0.3rem 0.5rem rgba(0, 0, 0, 0.25),
+    inset 0 0.3rem 0.5rem rgba(255, 255, 255, 0.5);
+  display: grid;
+  place-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem;
+}
+
+.face span {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #3a3b3f, #111);
+  box-shadow: inset 0 0.1rem 0.15rem rgba(255, 255, 255, 0.35);
+  place-self: center;
+}
+
+.face--one {
+  transform: rotateX(90deg) translateZ(calc(var(--dice-size) / 2));
+}
+
+.face--two {
+  transform: rotateX(-90deg) translateZ(calc(var(--dice-size) / 2));
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-content: space-between;
+  justify-items: center;
+}
+
+.face--three {
+  transform: rotateY(90deg) translateZ(calc(var(--dice-size) / 2));
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-content: space-between;
+  justify-items: center;
+}
+
+.face--four {
+  transform: rotateY(-90deg) translateZ(calc(var(--dice-size) / 2));
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
+  align-content: space-between;
+}
+
+.face--five {
+  transform: translateZ(calc(var(--dice-size) / 2));
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.face--six {
+  transform: rotateY(180deg) translateZ(calc(var(--dice-size) / 2));
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.face--two span:nth-child(1) {
+  place-self: start start;
+}
+
+.face--two span:nth-child(2) {
+  place-self: end end;
+}
+
+.face--three span:nth-child(1) {
+  place-self: start start;
+}
+
+.face--three span:nth-child(2) {
+  place-self: center center;
+}
+
+.face--three span:nth-child(3) {
+  place-self: end end;
+}
+
+.face--four span:nth-child(1) {
+  place-self: start start;
+}
+
+.face--four span:nth-child(2) {
+  place-self: start end;
+}
+
+.face--four span:nth-child(3) {
+  place-self: end start;
+}
+
+.face--four span:nth-child(4) {
+  place-self: end end;
+}
+
+.face--five span:nth-child(1) {
+  place-self: start start;
+}
+
+.face--five span:nth-child(2) {
+  place-self: start end;
+}
+
+.face--five span:nth-child(3) {
+  place-self: center center;
+}
+
+.face--five span:nth-child(4) {
+  place-self: end start;
+}
+
+.face--five span:nth-child(5) {
+  place-self: end end;
+}
+
+.face--six span:nth-child(1) {
+  place-self: start start;
+}
+
+.face--six span:nth-child(2) {
+  place-self: center start;
+}
+
+.face--six span:nth-child(3) {
+  place-self: end start;
+}
+
+.face--six span:nth-child(4) {
+  place-self: start end;
+}
+
+.face--six span:nth-child(5) {
+  place-self: center end;
+}
+
+.face--six span:nth-child(6) {
+  place-self: end end;
 }
 
 .results {
