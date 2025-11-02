@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dice Roller 3D</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="layout">
+      <header class="hero">
+        <h1 class="hero__title">3D Dice Roller</h1>
+        <p class="hero__subtitle">
+          Choose how many dice to roll, generate 3D models, and watch them tumble.
+        </p>
+      </header>
+
+      <section class="controls" aria-labelledby="dice-controls">
+        <h2 id="dice-controls" class="controls__title">Setup</h2>
+        <form class="controls__form" id="dice-form">
+          <label class="field">
+            <span class="field__label">Number of dice</span>
+            <input
+              id="dice-count"
+              class="field__input"
+              type="number"
+              min="1"
+              max="12"
+              value="3"
+              required
+              aria-describedby="dice-help"
+            />
+            <span id="dice-help" class="field__help">Choose between 1 and 12 dice.</span>
+          </label>
+          <button type="submit" class="button button--primary">Create Dice</button>
+        </form>
+        <button id="roll-button" class="button button--accent" disabled>
+          Roll
+        </button>
+      </section>
+
+      <section class="stage" aria-live="polite">
+        <h2 class="sr-only">Dice stage</h2>
+        <div id="dice-container" class="dice-grid" role="list"></div>
+      </section>
+
+      <section class="results" aria-live="polite">
+        <h2 class="results__title">Results</h2>
+        <div id="results-list" class="results__list"></div>
+        <output id="results-total" class="results__total" aria-live="polite"></output>
+      </section>
+    </main>
+
+    <template id="die-template">
+      <article class="die" role="listitem" aria-label="Die">
+        <div class="die__wrapper">
+          <div class="die__cube" data-value="1">
+            <div class="face face--one">
+              <span class="pip pip--center"></span>
+            </div>
+            <div class="face face--two">
+              <span class="pip pip--top-left"></span>
+              <span class="pip pip--bottom-right"></span>
+            </div>
+            <div class="face face--three">
+              <span class="pip pip--top-left"></span>
+              <span class="pip pip--center"></span>
+              <span class="pip pip--bottom-right"></span>
+            </div>
+            <div class="face face--four">
+              <span class="pip pip--top-left"></span>
+              <span class="pip pip--top-right"></span>
+              <span class="pip pip--bottom-left"></span>
+              <span class="pip pip--bottom-right"></span>
+            </div>
+            <div class="face face--five">
+              <span class="pip pip--top-left"></span>
+              <span class="pip pip--top-right"></span>
+              <span class="pip pip--center"></span>
+              <span class="pip pip--bottom-left"></span>
+              <span class="pip pip--bottom-right"></span>
+            </div>
+            <div class="face face--six">
+              <span class="pip pip--top-left"></span>
+              <span class="pip pip--middle-left"></span>
+              <span class="pip pip--bottom-left"></span>
+              <span class="pip pip--top-right"></span>
+              <span class="pip pip--middle-right"></span>
+              <span class="pip pip--bottom-right"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
