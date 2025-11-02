@@ -11,6 +11,7 @@ const AudioContextClass = window.AudioContext || window.webkitAudioContext;
 let audioContext;
 
 const BASE_TILT = { x: -34, y: 36, z: -6 };
+const BASE_TILT = { x: -24, y: 32, z: 0 };
 
 const ORIENTATIONS = {
   1: { x: -90, y: 0, z: 0 },
